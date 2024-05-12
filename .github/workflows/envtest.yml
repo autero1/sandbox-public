@@ -1,0 +1,26 @@
+name: Deployment Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  say_hello_dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: echo "Hello World from Dev Environment!"
+
+  say_hello_test:
+    needs: say_hello_dev
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run a one-line script
+        run: echo "Hello World from Test Environment!"
